@@ -1,10 +1,12 @@
 import React from "react";
 import "../css/globals.css";
-import { Provider } from "react-redux";
-import { Reducer } from "../global/RootReducer";
-
+import type { Metadata } from "next";
 interface CHI {
     children: React.ReactNode
+};
+
+export const metadata: Metadata = {
+    title: "Henry and Kola"
 };
 
 export default function 
@@ -12,13 +14,7 @@ RootLayout({children}: CHI) {
     return (
         <html lang="en">
             <body>
-            <React.Fragment>
-                <Provider store={Reducer}>
-                    
-                        {children}
-                    
-                </Provider>
-                </React.Fragment>
+                { children }
             </body>
         </html>
     );
