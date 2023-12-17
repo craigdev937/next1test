@@ -1,6 +1,18 @@
 import React from "react";
+import { notFound } from "next/navigation";
 import { ITic } from "../../../models/Interfaces";
 const URL = "http://localhost:5000/tickets";
+
+export const dynamicParams = true;
+
+export async function generateStaticParams(): Promise<ITic[]> {
+    const res: Response = await fetch(URL);
+    if (!res.ok) throw new Error(res.statusText);
+    const tickets = await res.json();
+    return tickets.map((ticket: ITic) => ({
+        id: ticket.id
+    }));
+};
 
 async function getTicket(id: string): Promise<ITic> {
     const res: Response = await fetch(`${URL}/${id}`, {
@@ -8,7 +20,7 @@ async function getTicket(id: string): Promise<ITic> {
             revalidate: 60
         }
     });
-    if (!res.ok) throw new Error(res.statusText);
+    if (!res.ok) notFound();
     const data = await res.json();
     return data;
 };
