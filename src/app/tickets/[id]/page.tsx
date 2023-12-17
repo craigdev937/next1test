@@ -15,6 +15,9 @@ export async function generateStaticParams(): Promise<ITic[]> {
 };
 
 async function getTicket(id: string): Promise<ITic> {
+    // imitate a delay.
+    await new Promise((res) => setTimeout(res, 4000));
+    // run normal fetching.
     const res: Response = await fetch(`${URL}/${id}`, {
         next: {
             revalidate: 60

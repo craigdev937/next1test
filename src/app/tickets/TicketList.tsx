@@ -4,6 +4,9 @@ import { ITic } from "../../models/Interfaces";
 const URL = "http://localhost:5000/tickets";
 
 async function getTickets(): Promise <ITic[]> {
+    // imitate a delay.
+    await new Promise((res) => setTimeout(res, 4000));
+    // run normal fetching of data.
     const res: Response = await fetch(URL, {
         next: {
             revalidate: 0
